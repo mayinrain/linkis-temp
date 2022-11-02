@@ -408,7 +408,7 @@ export default {
       }
       const ipArr = val.split(/[,;]/);
       ipArr.forEach(ip => {
-        if(!/(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])(\.(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])){3}$/.test(ip)&&ip !== '*') {
+        if(!/^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$/.test(ip)&&ip !== '*') {
           cb(new Error(this.$t('message.linkis.ipListManagement.ipContentError')));
         }
       })
