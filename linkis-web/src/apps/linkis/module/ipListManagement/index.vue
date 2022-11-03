@@ -406,9 +406,12 @@ export default {
       if (!val) {
         cb(new Error(this.$t('message.linkis.ipListManagement.notEmpty')));
       }
-      const ipArr = val.split(/[,;]/);
+      if(val === '*') {
+        cb();
+      }
+      const ipArr = val.split(',');
       ipArr.forEach(ip => {
-        if(!/^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$/.test(ip)&&ip !== '*') {
+        if(!/^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$/.test(ip)) {
           cb(new Error(this.$t('message.linkis.ipListManagement.ipContentError')));
         }
       })
@@ -434,6 +437,7 @@ export default {
 </script>
 <style lang="scss" src="./index.scss" scoped></style>
 <style lang="scss" scoped>
+
 .modal {
   
   .input-area {
@@ -444,6 +448,16 @@ export default {
       .input {
         width: calc(100% - 66px);
       }
+    }
+  }
+}
+
+</style>
+<style lang="scss">
+.ivu-tooltip-popper {
+  .ivu-tooltip-content {
+    .ivu-tooltip-inner-with-width {
+      word-wrap: break-word;
     }
   }
 }
