@@ -428,7 +428,7 @@ export default {
   top: 0;
   right: 20px;
 }
-.table-div {
+/deep/ .table-div {
   height: 100% !important;
 }
 </style>
