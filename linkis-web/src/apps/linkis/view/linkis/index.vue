@@ -73,6 +73,7 @@
           <Breadcrumb v-if="$route.name !== 'resource' && $route.name !== 'resourceEngineConnList'">
             <BreadcrumbItem :to="skipPath"><Icon v-if="skipPath" type="ios-arrow-back" size="16" color="#338cf0"></Icon>{{ breadcrumbSecondName }}</BreadcrumbItem>
             <BreadcrumbItem v-if="$route.name === 'viewHistory'">{{ $route.query.taskID }}</BreadcrumbItem>
+            <BreadcrumbItem v-if="$route.name === 'codeDetail'">{{ $route.query.id }}</BreadcrumbItem>
             <template v-if="$route.name === 'EngineConnList'">
               <BreadcrumbItem>{{ $route.query.instance }}</BreadcrumbItem>
               <BreadcrumbItem>EngineConnList</BreadcrumbItem>
@@ -115,6 +116,7 @@ export default {
           { key: '1-8', name: this.$t('message.linkis.sideNavList.function.children.dataSourceManage'), showSubMenu: true },
           { key: '1-9', name: this.$t('message.linkis.sideNavList.function.children.udfFunctionTitle'), path: '/console/urm/udfManagement', showSubMenu: true},
           { key: '1-10', name: this.$t('message.linkis.sideNavList.function.children.basedataManagement'), showSubMenu: true},
+          { key: '1-11', name: this.$t('message.linkis.sideNavList.function.children.codeQuery'), path: '/console/codeQuery' },
         ],
       },
       datasourceNavList: {
@@ -124,7 +126,7 @@ export default {
         icon: 'ios-options',
         children: [
           {key: '1-8-1', name: this.$t('message.linkis.sideNavList.function.children.dataSourceManage'), path: '/console/dataSource' },
-          // {key: '1-8-2', name: this.$t('message.linkis.sideNavList.function.children.datasourceEnv'), path: '/console/datasourceEnv' },
+          {key: '1-8-2', name: this.$t('message.linkis.sideNavList.function.children.datasourceEnv'), path: '/console/datasourceEnv' },
           // {key: '1-8-3', name: this.$t('message.linkis.sideNavList.function.children.datasourceType'), path: '/console/datasourceType' },
           // {key: '1-8-4', name: this.$t('message.linkis.sideNavList.function.children.datasourceAccess'), path: '/console/datasourceAccess' },
         ]
@@ -163,6 +165,7 @@ export default {
     skipPath() {
       let path = '';
       if(this.$route.name === 'viewHistory') path = '/console';
+      if(this.$route.name === 'codeDetail') path = '/console/codeQuery';
       if(this.$route.name === 'EngineConnList') path = '/console/ECM';
       return path;
     },
@@ -179,6 +182,10 @@ export default {
         this.breadcrumbSecondName = element.name
       }
     });
+    if(this.$route.name === 'codeDetail') {
+      this.breadcrumbSecondName = this.$t('message.linkis.sideNavList.function.children.codeQuery')
+      this.crrentItem = '1-11'
+    }
     // 获取是否是历史管理员权限
     api.fetch('/jobhistory/governanceStationAdmin', 'get').then((res) => {
       this.isLogAdmin = res.admin;
@@ -240,7 +247,7 @@ export default {
     } else if ((to.name === 'Console' && from.name === 'Home') || (to.name === 'Console' && from.name === 'Project') || (to.name === 'Console' && from.name === 'Workflow') || !from.name) {
       const lastActiveConsole = storage.get('lastActiveConsole');
       // 如果为历史详情则直接刷新
-      if(to.name === 'viewHistory') return next();
+      if(to.name === 'viewHistory' || to.name === 'codeDetail') return next();
       next((vm) => {
         if (lastActiveConsole) {
           if (lastActiveConsole.key === '1-9-1' || lastActiveConsole.key === '1-9-2') {
