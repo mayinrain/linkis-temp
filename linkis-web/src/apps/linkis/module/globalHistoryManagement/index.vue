@@ -524,7 +524,7 @@ export default {
           title: this.$t('message.linkis.tableColumns.fileName'),
           key: 'source',
           align: 'center',
-          tooltip: true,
+          ellipsis: true,
           width: 190
         },
         {
