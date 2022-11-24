@@ -83,6 +83,22 @@
         </FormItem>
       </Form>
     </Modal>
+    <Modal
+      @on-ok="confirmKill"
+      v-model="killModal">
+      <div>
+        <div class="tip">
+          {{$t('message.linkis.tipForKill')}}{{killInfo.curInstance}}
+        </div>
+        <div class="radio">
+          {{$t('message.linkis.allEngine')}}
+          <RadioGroup v-model="killInfo.all">
+            <Radio :label="1">{{$t('message.linkis.yes')}}</Radio>
+            <Radio :label="0">{{$t('message.linkis.no')}}</Radio>
+          </RadioGroup>
+        </div>
+      </div>
+    </Modal>
   </div>
 </template>
 <script>
@@ -119,6 +135,12 @@ export default {
       tableWidth: 0,
       // 开启标签修改弹框
       isTagEdit: false,
+      // 删除实例instance
+      killInfo: {
+        curInstance: '',
+        all: 1,
+      },
+      killModal: false,
       tableData: [],
       page: {
         totalSize: 0,
@@ -184,7 +206,7 @@ export default {
         {
           title: this.$t('message.linkis.tableColumns.control.title'),
           key: 'action',
-          width: '80',
+          width: '150',
           // fixed: 'right',
           align: 'center',
           render: (h, params) => {
@@ -192,7 +214,10 @@ export default {
               h('Button', {
                 props: {
                   type: 'primary',
-                  size: 'small'
+                  size: 'small',
+                },
+                style: {
+                  marginRight: '5px'
                 },
                 on: {
                   click: () => {
@@ -213,7 +238,23 @@ export default {
                     this.formItem = Object.assign(this.formItem, obj)
                   }
                 }
-              }, this.$t('message.linkis.tagEdit'))
+              }, this.$t('message.linkis.tagEdit')),
+              h('Button', {
+                props: {
+                  type: 'error',
+                  size: 'small'
+                },
+                style: {
+                  display: sessionStorage.getItem('isLogAdmin') ? 'inline-block' : 'none'
+                },
+                on: {
+                  click: () => {
+                    this.killModal = true;
+                    console.log(params.row);
+                    this.killInfo.curInstance = params.row.instance;
+                  }
+                }
+              }, 'kill')
             ]);
           }
         }
@@ -381,6 +422,17 @@ export default {
     resetTagAdd(v) {
       if (v===false && this.$refs.wbtags) {
         this.$refs.wbtags.resetTagAdd()
+      }
+    },
+    async confirmKill() {
+      try {
+        const res = await api.fetch('/linkisManager/rm/enginekillByEM', {
+          instance: this.killInfo.curInstance,
+          concurrentEngineEnable: this.killInfo.all === 1 ? true : false,
+        }, 'post');
+        console.log(res);
+      } catch (err) {
+        console.warn(err);
       }
     }
   }
