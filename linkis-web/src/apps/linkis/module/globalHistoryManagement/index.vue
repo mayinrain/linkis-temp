@@ -94,7 +94,7 @@
         <Button
           type="primary"
           @click="switchAdmin"
-          v-if="isLogAdmin"
+          v-if="isLogAdmin || isHistoryAdmin"
         >{{ isAdminModel ? $t('message.linkis.generalView') : $t('message.linkis.manageView') }}</Button>
       </FormItem>
     </Form>
@@ -260,6 +260,7 @@ export default {
         }
       ],
       isLogAdmin: false,
+      isHistoryAdmin: false,
       isAdminModel: false,
       moduleHeight: 300
     }
@@ -268,6 +269,7 @@ export default {
     // 获取是否是历史管理员权限
     api.fetch('/jobhistory/governanceStationAdmin', 'get').then(res => {
       this.isLogAdmin = res.admin
+      this.isHistoryAdmin = res.historyAdmin
     })
     api.fetch('/configuration/engineType', 'get').then(res => {
       this.getEngineTypes = ['all', ...res.engineType]
