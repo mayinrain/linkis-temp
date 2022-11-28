@@ -78,6 +78,8 @@
             "previousPage": "上一页",
             "all": "全部",
             "common": "通用",
+            "tenant": "租户标签",
+            "inputTenant": "请输入租户标签",
             "warning": {
                 "api": "接口请求中，请稍候！",
                 "data": "数据请求中，请稍候！",

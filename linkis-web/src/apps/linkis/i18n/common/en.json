@@ -77,6 +77,8 @@
       "previousPage": "Previous Page",
       "all": "All",
       "common": "Common",
+      "tenant": "Tenant",
+      "inputTenant": "Please Input Tenant",
       "warning": {
         "api": "Requesting API, please hold on!",
         "data": "Requesting data, please hold on!",

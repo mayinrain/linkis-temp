@@ -401,7 +401,8 @@ export default {
       let param = {
         instance: e.instance,
         nodeHealthy: e.nodeHealthy,
-        owner: e.owner
+        owner: e.owner,
+        tenantLabel: e.tenant,
       }
       api.fetch('/linkisManager/listAllEMs',param,'get').then((res)=>{
         this.tableData = res.EMs
