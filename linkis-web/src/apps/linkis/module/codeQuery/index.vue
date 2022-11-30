@@ -22,7 +22,7 @@
         <Input
           v-model="searchBar.executionCode"
           :placeholder="$t('message.linkis.codeQuery.placeholder.executionCode')"
-          style="width:100px;"
+          style="width:180px;"
         ></Input>
       </FormItem>
       <FormItem prop="shortcut" :label="$t('message.linkis.codeQuery.dataRange')" :label-width="60">
@@ -35,7 +35,7 @@
           placement="bottom-start"
           format="yyyy-MM-dd"
           :placeholder="$t('message.linkis.codeQuery.placeholder.dataRange')"
-          style="width: 160px"
+          style="width: 180px"
           :editable="false"
         />
       </FormItem>
@@ -74,7 +74,8 @@
       :columns="tableColumns"
       :data="tableData"
       :loading="tableLoading"
-      class="table-content data-source-table">
+      class="table-content data-source-table"
+      :no-data-text="this.noDataText">
 
     </Table>
     <Page
@@ -97,6 +98,7 @@ export default {
   data() {
     return {
       tableData: [],
+      beforeSearch: true,
       searchBar: {
         executionCode: "",
         shortcut: [],
@@ -139,7 +141,10 @@ export default {
               return [start, end]
             }
           }
-        ]
+        ],
+        disabledDate(date) {
+          return date.valueOf() > Date.now() - 86400000
+        }
       },
       statusType: [
         {
@@ -239,7 +244,12 @@ export default {
     }
   },
   computed: {
-   
+    noDataText() {
+      if(this.beforeSearch) {
+        return this.$t('message.linkis.noDataTextBeforeSearch')
+      }
+      return this.$t('message.linkis.noDataTextAfterSearch')
+    }
   },
   methods: {
     confirmSearch() {
@@ -251,9 +261,9 @@ export default {
     switchAdmin() {
       if (!this.tableLoading) {
         this.isAdminModel = !this.isAdminModel
-        this.searchParams = cloneDeep(this.searchBar)
-        this.page.pageNow = 1
-        this.search()
+        // this.searchParams = cloneDeep(this.searchBar)
+        // this.page.pageNow = 1
+        // this.search()
       }
     },
     async reset() {
@@ -267,6 +277,7 @@ export default {
         shortcut: [],
         status: "",
       };
+      this.beforeSearch = true;
       this.tableData = [];
     },
     async changePage(val) {
@@ -278,8 +289,10 @@ export default {
         this.tableLoading = true
         if(!this.searchParams.executionCode) {
           this.$Message.warning(this.$t('message.linkis.codeQuery.inputCode'))
+          this.beforeSearch = true;
           throw Error(this.$t('message.linkis.codeQuery.inputCode'));
         }
+        this.beforeSearch = false;
         const { executionCode, shortcut, status } = this.searchParams;
         const { pageNow, pageSize } = this.page;
         const params = {

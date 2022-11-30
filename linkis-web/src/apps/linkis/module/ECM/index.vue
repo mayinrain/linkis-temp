@@ -88,13 +88,13 @@
       v-model="killModal">
       <div>
         <div class="tip">
-          {{$t('message.linkis.tipForKill')}}{{killInfo.curInstance}}
+          {{$t('message.linkis.tipForKill', {instance: killInfo.curInstance})}}
         </div>
         <div class="radio">
           {{$t('message.linkis.allEngine')}}
           <RadioGroup v-model="killInfo.all">
-            <Radio :label="1">{{$t('message.linkis.yes')}}</Radio>
             <Radio :label="0">{{$t('message.linkis.no')}}</Radio>
+            <Radio :label="1">{{$t('message.linkis.yes')}}</Radio>
           </RadioGroup>
         </div>
       </div>
@@ -106,6 +106,7 @@ import api from '@/common/service/api';
 import moment from "moment";
 import Search from '@/apps/linkis/module/ECM/search.vue';
 import WbTag from '@/apps/linkis/components/tag';
+import { debounce } from 'lodash'
 export default {
   name: 'ECM',
   data() {
@@ -138,7 +139,7 @@ export default {
       // 删除实例instance
       killInfo: {
         curInstance: '',
-        all: 1,
+        all: 0,
       },
       killModal: false,
       tableData: [],
@@ -206,7 +207,7 @@ export default {
         {
           title: this.$t('message.linkis.tableColumns.control.title'),
           key: 'action',
-          width: '150',
+          width: '230',
           // fixed: 'right',
           align: 'center',
           render: (h, params) => {
@@ -254,7 +255,7 @@ export default {
                     this.killInfo.curInstance = params.row.instance;
                   }
                 }
-              }, 'kill')
+              }, this.$t('message.linkis.killAll'))
             ]);
           }
         }
@@ -425,17 +426,28 @@ export default {
         this.$refs.wbtags.resetTagAdd()
       }
     },
-    async confirmKill() {
+    confirmKill: debounce(async function() {
       try {
-        const res = await api.fetch('/linkisManager/rm/enginekillByEM', {
+        const res = await api.fetch('/linkisManager/rm/killUnlockEngineByEM', {
           instance: this.killInfo.curInstance,
-          concurrentEngineEnable: this.killInfo.all === 1 ? true : false,
+          withMultiUserEngine: this.killInfo.all === 1 ? true : false,
         }, 'post');
+        const { killEngineNum, memory, cores } = res.result
         console.log(res);
+        this.killModal = false;
+        this.killInfo = {
+          curInstance: '',
+          all: 0,
+        }
+        this.$Message.success(this.$t('message.linkis.killFinishedInfo', { killEngineNum, memory, cores }))
       } catch (err) {
         console.warn(err);
+        this.killInfo = {
+          curInstance: '',
+          all: 0,
+        }
       }
-    }
+    }, 1000, { leading: true })
   }
 }
 </script>
