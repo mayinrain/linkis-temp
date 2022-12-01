@@ -93,7 +93,7 @@
       size="small"
       show-elevator
       :prev-text="$t('message.linkis.previousPage')" :next-text="$t('message.linkis.nextPage')"
-      style="overflow: hidden; text-align: center;"
+      style="position: absoulute; bottom: 10px; overflow: hidden; text-align: center;"
     ></Page>
   </div>
 </template>
