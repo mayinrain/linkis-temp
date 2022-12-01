@@ -44,10 +44,10 @@
         <Button type="primary" class="button" :style="{width: '70px', marginRight: '5px', marginLeft: '5px', padding: '5px'}" @click="search">{{
           $t('message.linkis.ipListManagement.search')
         }}</Button>
-        <Button type="primary" class="button" :style="{width: '70px', marginRight: '5px', marginLeft: '5px', padding: '5px'}" @click="clearSearch">{{
+        <Button type="warning" class="button" :style="{width: '70px', marginRight: '5px', marginLeft: '5px', padding: '5px'}" @click="clearSearch">{{
           $t('message.linkis.ipListManagement.clear')
         }}</Button>
-        <Button type="primary" class="button" :style="{width: '70px', marginRight: '5px', marginLeft: '5px', padding: '5px'}" @click="createTenant">{{
+        <Button type="success" class="button" :style="{width: '70px', marginRight: '5px', marginLeft: '5px', padding: '5px'}" @click="createTenant">{{
           $t('message.linkis.ipListManagement.create')
         }}</Button>
       </Col>

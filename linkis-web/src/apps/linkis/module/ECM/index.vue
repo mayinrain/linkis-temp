@@ -439,7 +439,8 @@ export default {
           curInstance: '',
           all: 0,
         }
-        this.$Message.success(this.$t('message.linkis.killFinishedInfo', { killEngineNum, memory, cores }))
+        // 传回的是Byte
+        this.$Message.success(this.$t('message.linkis.killFinishedInfo', { killEngineNum, memory: memory / 1024 / 1024 / 1024, cores }))
       } catch (err) {
         console.warn(err);
         this.killInfo = {

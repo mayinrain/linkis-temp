@@ -17,14 +17,21 @@
 
 <template>
   <div class="code-query">
-    <Form class="code-query-searchbar" :model="searchBar" inline label-position="left">
-      <FormItem prop="executionCode" :label="$t('message.linkis.codeQuery.executionCode')" :label-width="60">
+    <Form class="code-query-searchbar" :model="searchBar" inline label-position="left" style="width: 99%">
+      <FormItem prop="executionCode" :label="$t('message.linkis.codeQuery.executionCode')" :label-width="60" style="width: 100%">
         <Input
           v-model="searchBar.executionCode"
           :placeholder="$t('message.linkis.codeQuery.placeholder.executionCode')"
-          style="width:180px;"
         ></Input>
       </FormItem>
+    </Form>
+    <Form class="code-query-searchbar" :model="searchBar" inline label-position="left">
+      <!-- <FormItem prop="executionCode" :label="$t('message.linkis.codeQuery.executionCode')" :label-width="60">
+        <Input
+          v-model="searchBar.executionCode"
+          :placeholder="$t('message.linkis.codeQuery.placeholder.executionCode')"
+        ></Input>
+      </FormItem> -->
       <FormItem prop="shortcut" :label="$t('message.linkis.codeQuery.dataRange')" :label-width="60">
         <DatePicker
           :transfer="true"
@@ -86,7 +93,7 @@
       size="small"
       show-elevator
       :prev-text="$t('message.linkis.previousPage')" :next-text="$t('message.linkis.nextPage')"
-      style="margin: 10px; overflow: hidden; text-align: center;"
+      style="overflow: hidden; text-align: center;"
     ></Page>
   </div>
 </template>
@@ -189,9 +196,12 @@ export default {
           render: (h, params) => {
             return h('div', [
               h('Button', {
-                props: {
-                  type: 'default',
-                  size: 'small'
+                // props: {
+                //   type: 'default',
+                //   size: 'small'
+                // },
+                class: {
+                  'render-btn': true,
                 },
                 on: {
                   click: () => {
@@ -233,6 +243,13 @@ export default {
           ellipsis: true,
           tooltip: true,
           align: 'center',
+          render: (h, params) => {
+            return h('Tag', {
+              props: {
+                color: this.colorGetter(params.row.status)
+              }
+            }, this.$t(`message.linkis.statusType.${params.row.status.toLowerCase()}`))
+          }
         },
       ],
       page: {
@@ -249,7 +266,7 @@ export default {
         return this.$t('message.linkis.noDataTextBeforeSearch')
       }
       return this.$t('message.linkis.noDataTextAfterSearch')
-    }
+    },
   },
   methods: {
     confirmSearch() {
@@ -328,7 +345,19 @@ export default {
         path: '/console/codeDetail',
         query
       })
-    }
+    },
+    colorGetter(status) {
+      switch (status) {
+        case 'Running':
+          return 'yellow';
+        case 'Succeed':
+          return 'green';
+        case 'Failed':
+          return 'red';
+        default:
+          break;
+      }
+    },
   },
   created() {
     // 获取是否是历史管理员权限
@@ -341,6 +370,12 @@ export default {
 </script>
 <style lang="scss" src="./index.scss" scoped></style>
 <style lang="scss" scoped>
+/deep/ .ivu-btn {
+  &:hover {
+    border-color: transparent;
+  }
+  border-color: transparent;
+}
 .modal {
   
   .input-area {

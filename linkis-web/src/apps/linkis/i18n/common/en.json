@@ -38,7 +38,7 @@
       "result": "Task Result",
       "startUp": "Start-up",
       "tagEdit": "Edit",
-      "tipForKill": "The idle engines on instance 【{instance}】 will be killed",
+      "tipForKill": "The unlock engines of ECM [{instance}}] will be killed",
       "killAll": "Kill Unlock Engine",
       "allEngine": "Include Multiple User Engine?",
       "killFinishedInfo": "Expected to stop {killEngineNum} engines, will release ECM {cores}cores,{memory}G resources",
