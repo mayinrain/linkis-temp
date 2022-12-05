@@ -17,14 +17,15 @@
 
 <template>
   <div class="code-query">
-    <Form class="code-query-searchbar" :model="searchBar" inline label-position="left" style="width: 99%">
-      <FormItem prop="executionCode" :label="$t('message.linkis.codeQuery.executionCode')" :label-width="60" style="width: 100%">
+    <Form class="code-query-searchbar" :model="searchBar" inline label-position="left" style="width: 99%" @submit.native.prevent>
+      <FormItem prop="executionCode" :label="$t('message.linkis.codeQuery.executionCode')" :label-width="60" style="width: 100%; margin-bottom: 5px">
         <Input
           v-model="searchBar.executionCode"
           :placeholder="$t('message.linkis.codeQuery.placeholder.executionCode')"
         ></Input>
       </FormItem>
     </Form>
+    <div style="font-style: italic; color: #cccccc;">{{$t('message.linkis.codeQuery.searchRange')}}</div>
     <Form class="code-query-searchbar" :model="searchBar" inline label-position="left">
       <!-- <FormItem prop="executionCode" :label="$t('message.linkis.codeQuery.executionCode')" :label-width="60">
         <Input
@@ -32,7 +33,7 @@
           :placeholder="$t('message.linkis.codeQuery.placeholder.executionCode')"
         ></Input>
       </FormItem> -->
-      <FormItem prop="shortcut" :label="$t('message.linkis.codeQuery.dataRange')" :label-width="60">
+      <FormItem prop="shortcut" :label="$t('message.linkis.codeQuery.dateRange')" :label-width="60">
         <DatePicker
           :transfer="true"
           class="datepicker"
@@ -41,7 +42,7 @@
           type="daterange"
           placement="bottom-start"
           format="yyyy-MM-dd"
-          :placeholder="$t('message.linkis.codeQuery.placeholder.dataRange')"
+          :placeholder="$t('message.linkis.codeQuery.placeholder.dateRange')"
           style="width: 180px"
           :editable="false"
         />
@@ -124,27 +125,30 @@ export default {
           {
             text: this.$t('message.linkis.shortcuts.week'),
             value() {
-              const end = new Date()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              const end = new Date(new Date().toLocaleDateString())
+              const start = new Date(new Date().toLocaleDateString())
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 8)
+              end.setTime(end.getTime() - 3600 * 1000 * 24 * 1)
               return [start, end]
             }
           },
           {
             text: this.$t('message.linkis.shortcuts.month'),
             value() {
-              const end = new Date()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              const end = new Date(new Date().toLocaleDateString())
+              const start = new Date(new Date().toLocaleDateString())
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 31)
+              end.setTime(end.getTime() - 3600 * 1000 * 24 * 1)
               return [start, end]
             }
           },
           {
             text: this.$t('message.linkis.shortcuts.threeMonths'),
             value() {
-              const end = new Date()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              const end = new Date(new Date().toLocaleDateString())
+              const start = new Date(new Date().toLocaleDateString())
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 91)
+              end.setTime(end.getTime() - 3600 * 1000 * 24 * 1)
               return [start, end]
             }
           }
@@ -315,7 +319,7 @@ export default {
         const params = {
           executionCode,
           startDate: Date.parse(shortcut[0]),
-          endDate: Date.parse(shortcut[1]) + 1440000,
+          endDate: Date.parse(shortcut[1]) + 86399999,
           isAdminView: this.isAdminModel,
           pageNow,
           pageSize,
@@ -341,6 +345,12 @@ export default {
       const query = {
         id
       }
+      // set storage
+      sessionStorage.setItem('code-search', JSON.stringify(this.searchParams));
+      sessionStorage.setItem('code-use-cache', true);
+      sessionStorage.setItem('code-search-page', JSON.stringify(this.page));
+      sessionStorage.setItem('code-search-admin', this.isAdminModel);
+
       this.$router.push({
         path: '/console/codeDetail',
         query
@@ -364,8 +374,28 @@ export default {
     api.fetch('/jobhistory/governanceStationAdmin', 'get').then(res => {
       this.isLogAdmin = res.admin
     })
+  },
+  beforeRouteEnter(to, from, next) {
+    if(from.name !== 'codeDetail') {
+      sessionStorage.removeItem('code-search');
+      sessionStorage.removeItem('code-search-page');
+      sessionStorage.removeItem('code-search-admin');
+      sessionStorage.setItem('code-use-cache', false);
+    }
+    next();
+  },
+  mounted() {
+    if(sessionStorage.getItem('code-use-cache') === 'true') {
+      this.searchParams = JSON.parse(sessionStorage.getItem('code-search'));
+      this.searchBar = JSON.parse(sessionStorage.getItem('code-search'));
+      this.page = JSON.parse(sessionStorage.getItem('code-search-page'));
+      this.isAdminModel = JSON.parse(sessionStorage.getItem('code-search-admin'));
+      if(sessionStorage.getItem('isLogAdmin') !== 'true') {
+        this.isAdminModel = false;
+      }
+      this.search();
+    }
   }
-
 };
 </script>
 <style lang="scss" src="./index.scss" scoped></style>

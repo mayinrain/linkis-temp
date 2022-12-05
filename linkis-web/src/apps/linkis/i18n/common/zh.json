@@ -416,7 +416,17 @@
               "add": "新增",
               "remove": "删除",
               "edit": "编辑",
-              "addUDFAdmin": "新增UDF管理员"
+              "addUDFAdmin": "新增UDF管理员",
+              "search": "搜索",
+              "envName": "环境名称",
+              "envDesc": "环境描述",
+              "dataSourceName": "数据源名称",
+              "parameter": "参数",
+              "createTime": "创建时间",
+              "creator": "创建者",
+              "modifyUser": "更新者",
+              "updateTime": "更新时间",
+              "action": "操作"
             },
           "EnginePluginManagement": {
             "engineConnType": "引擎类型",
@@ -442,10 +452,10 @@
           },
           "codeQuery": {
             "executionCode": "执行代码",
-            "dataRange": "时间范围",
+            "dateRange": "时间范围",
             "placeholder": {
                 "executionCode": "请输入执行代码",
-                "dataRange": "时间范围",
+                "dateRange": "时间范围",
                 "status": "状态"
             },
             "inputCode": "请输入执行代码",
@@ -456,7 +466,8 @@
             "clear": "清空",
             "status": "状态",
             "submitUser": "提交用户",
-            "createdTime": "创建时间"
+            "createdTime": "创建时间",
+            "searchRange": "仅可查询T-1的历史代码"
           }
         }
     }

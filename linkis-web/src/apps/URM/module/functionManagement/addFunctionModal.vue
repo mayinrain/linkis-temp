@@ -54,7 +54,7 @@
           <Radio
             v-if="isUdf"
             :disabled="model === 1"
-            label="spark"/>
+            label="Spark"/>
           <Radio
             v-if="!isUdf"
             :label="$t('message.linkis.udf.ZDYHS')"/>

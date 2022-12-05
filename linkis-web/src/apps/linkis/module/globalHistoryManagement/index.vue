@@ -287,6 +287,14 @@ export default {
     // storage.set('last-searchbar-status', this.searchBar)
     window.removeEventListener('resize', this.getHeight)
   },
+  beforeRouteEnter(to, from, next) {
+    if(from.name !== 'viewHistory') {
+      sessionStorage.removeItem('last-admin-model');
+      sessionStorage.removeItem('last-searchbar-status');
+      sessionStorage.removeItem('last-pageSetting-status');
+    }
+    next();
+  },
   activated() {
     this.init()
   },

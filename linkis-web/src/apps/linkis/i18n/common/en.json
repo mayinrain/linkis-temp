@@ -153,7 +153,7 @@
           "name": "Frequently Used",
           "children": {
             "globalHistory": "Global History",
-            "resource": "Resource Manager",
+            "resource": "Resource Management",
             "resourceEngineConnList": "History Engine",
             "setting": "Settings",
             "dateReport": "Global Variables",
@@ -162,7 +162,7 @@
             "ECMManage": "ECM Management",
             "udfFunctionTitle": "UDF Function",
             "udfFunctionManage": "UDF Management",
-            "dataSourceManage": "DataSource Manage",
+            "dataSourceManage": "DataSource Management",
             "userResourceManagement": "User Resource Management",
             "tenantTagManagement": "Tenant Tag Management",
             "ipListManagement": "White List Management",
@@ -172,10 +172,10 @@
             "udfManager": "UDF User Manage",
             "udfTree": "UDF Tree",
             "datasourceAccess": "Data source access permissions",
-            "datasourceEnv": "Datasource Environment",
-            "datasourceType": "Datasource Type",
+            "datasourceEnv": "DataSource Environment",
+            "datasourceType": "DataSource Type",
             "EnginePluginManagement": "Engine Plugin Management",
-            "basedataManagement": "Base data management",
+            "basedataManagement": "Basic Data Management",
             "codeQuery": "Code Retrieval"
           }
         }
@@ -308,7 +308,7 @@
       "viewlog": "View Log",
       "datasource": {
         "pleaseInput": "Please input",
-        "datasourceSrc": "Datasource",
+        "datasourceSrc": "DataSource",
         "connectTest": "Test Connection",
         "sourceName": "DataSource Name",
         "sourceDec": "DataSource Description",
@@ -413,27 +413,38 @@
       },
       "codeQuery": {
         "executionCode": "Execution Code",
-        "dataRange": "Data Range",
+        "dateRange": "Date Range",
         "placeholder": {
             "executionCode": "Please input execution code",
-            "dataRange": "Please select data range",
+            "dateRange": "Please select date range",
             "status": "Please select status"
         },
         "inputCode": "Please input execution code",
         "id": "ID",
         "code": "Code",
-        "check": "Check",
+        "check": "View",
         "search": "Search",
         "clear": "Clear",
         "status": "Status",
         "submitUser": "Submit User",
-        "createdTime": "Created Time"
+        "createdTime": "Created Time",
+        "searchRange": "Only T-1 history code can be queried"
       },
       "basedata": {
-        "add": "add",
-        "remove": "remove",
-        "edit": "edit",
-        "addUDFAdmin": "add UDF administrator"
+        "add": "Add",
+        "remove": "Remove",
+        "edit": "Edit",
+        "addUDFAdmin": "Add UDF Administrator",
+        "search": "Search",
+        "envName": "Environment Name",
+        "envDesc": "Environment Description",
+        "dataSourceName": "DataSource Name",
+        "parameter": "Parameter",
+        "createTime": "Create Time",
+        "creator": "Creator",
+        "modifyUser": "Modify User",
+        "updateTime": "Update Time",
+        "action": "Action"
       }
     }
   }

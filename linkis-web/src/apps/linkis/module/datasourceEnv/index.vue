@@ -19,7 +19,7 @@
   <div>
     <Row class="search-bar" type="flex">
       <Col span="6">
-        <Input v-model="searchName" clearable suffix="ios-search" class="input" placeholder="搜索"></Input>
+        <Input v-model="searchName" clearable suffix="ios-search" class="input" :placeholder="$t('message.linkis.basedata.add')"></Input>
       </Col>
       <Col span="3">
         <Button type="primary" class="Button" @click="load()">{{
@@ -113,32 +113,32 @@ export default {
           align: 'center',
         },
         {
-          title: "环境名称",
+          title: this.$t('message.linkis.basedata.envName'),
           key: 'envName',
           minWidth: 50,
           tooltip: true,
           align: 'center',
         },
         {
-          title: "环境描述",
+          title: this.$t('message.linkis.basedata.envDesc'),
           key: 'envDesc',
           tooltip: true,
           align: 'center',
         },
         {
-          title: "数据源名称",
+          title: this.$t('message.linkis.basedata.dataSourceName'),
           key: 'name',
           tooltip: true,
           align: 'center',
         },
         {
-          title: "参数",
+          title: this.$t('message.linkis.basedata.parameter'),
           key: 'parameter',
           tooltip: true,
           align: 'center',
         },
         {
-          title: "创建时间",
+          title: this.$t('message.linkis.basedata.createTime'),
           key: 'createTime',
           minWidth: 50,
           tooltip: true,
@@ -150,13 +150,13 @@ export default {
           }
         },
         {
-          title: "创建者",
+          title: this.$t('message.linkis.basedata.creator'),
           key: 'create_user',
           tooltip: true,
           align: 'center',
         },
         {
-          title: "更新时间",
+          title: this.$t('message.linkis.basedata.updateTime'),
           key: 'updateTime',
           minWidth: 50,
           tooltip: true,
@@ -168,7 +168,7 @@ export default {
           }
         },
         {
-          title: "更新者",
+          title: this.$t('message.linkis.basedata.modifyUser'),
           key: 'modify_user',
           tooltip: true,
           align: 'center',

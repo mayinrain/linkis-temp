@@ -47,7 +47,7 @@ export default {
             }
           });
           // 全局和不区分大小写模式，正则是匹配searchText前后出了换行符之外的字符
-          let regexp = new RegExp(`.*${formatedVal}.*`, 'gi');
+          let regexp = new RegExp(`.*${formatedVal}.*`);
           MatchText = filter(originCode.split('\n'), (item) => {
             return regexp.test(item);
           }).join('\n');
