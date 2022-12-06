@@ -159,7 +159,7 @@
       </FormItem> -->
       <FormItem
         :label="$t('message.linkis.udf.useFormat')"
-        required>
+        class="ivu-form-item-required">
         <div class="format-div">
           <FormItem class="format-item">
             <Input
@@ -417,7 +417,7 @@ export default {
             type: 'string',
             required: true,
             message: this.$t('message.linkis.udf.SRFL'),
-            trigger: 'blur',
+            trigger: 'change',
           },
         ],
       },

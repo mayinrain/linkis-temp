@@ -115,7 +115,7 @@
       <FormItem
         v-else-if="fnType === 2 && fnCategory.isSpark"
         :label="$t('message.linkis.udf.registerFormat')"
-        required>
+        class="ivu-form-item-required">
         <div class="format-div">
           <FormItem prop="scalaTypeL">
             <Input
@@ -160,7 +160,7 @@
       </FormItem>
       <FormItem
         :label="$t('message.linkis.udf.useFormat')"
-        required>
+        class="ivu-form-item-required">
         <div class="format-div">
           <FormItem class="format-item">
             <Input
@@ -203,7 +203,8 @@
       <FormItem :label="$t('message.linkis.udf.class')" prop="directory">
         <Select 
           ref="directory" 
-          v-model="setting.directory" filterable 
+          v-model="setting.directory"
+          filterable 
           :remoteMethod="filterAdd" 
           @on-query-change="queryChange"
           :disabled="isUdf && model === 1">
@@ -420,7 +421,7 @@ export default {
             type: 'string',
             required: true,
             message: this.$t('message.linkis.udf.SRFL'),
-            trigger: 'blur',
+            trigger: 'change',
           },
         ]
       },
