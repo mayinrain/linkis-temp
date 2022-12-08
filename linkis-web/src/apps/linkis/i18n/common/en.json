@@ -70,8 +70,8 @@
       "unselect": "Please select task",
       "noselection": "Please select first",
       "searchName": "Please enter username to search",
-      "generalView": "Switch to The Common View",
-      "manageView": "Switch to The Admin View",
+      "generalView": "Switch to the Common View",
+      "manageView": "Switch to the Admin View",
       "back": "Back",
       "prev": "Previous Step",
       "complete": "Complete",
@@ -124,7 +124,7 @@
         "executeApplicationName": "Execution Engine",
         "requestApplicationName": "Created From",
         "user": "User",
-        "createdTime": "Created At",
+        "createdTime": "Created at",
         "updateTime": "Update Time",
         "failedReason": "Key Information",
         "control": {
@@ -214,8 +214,8 @@
         "executeApplicationName": "Execution Engine",
         "requestApplicationName": "Created From",
         "progress": "Progress",
-        "createdTime": "Created At",
-        "updatedTime": "Updated At",
+        "createdTime": "Created at",
+        "updatedTime": "Updated at",
         "control": {
           "title": "Handle",
           "label": "View"
@@ -227,7 +227,7 @@
         "memory": "Memory",
         "engineInstance": "Engine Instance",
         "applicationName": "Application Name",
-        "usedTime": "Started At",
+        "usedTime": "Started at",
         "engineStatus": "Status",
         "username": "Username"
       },
@@ -261,7 +261,7 @@
       "core": "Cores",
       "row": {
         "applicationName": "Application Name",
-        "usedTime": "Started At",
+        "usedTime": "Started at",
         "engineStatus": "Status",
         "engineInstance": "Engine Instance",
         "queueName": "Queue Name",

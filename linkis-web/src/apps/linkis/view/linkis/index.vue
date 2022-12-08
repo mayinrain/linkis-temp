@@ -158,7 +158,7 @@ export default {
           // {key: '1-9-4', name: this.$t('message.linkis.sideNavList.function.children.udfTree'), path: '/console/udfTree' },
         ]
       },
-      breadcrumbSecondName: this.$t('message.linkis.sideNavList.function.children.globalHistory')
+      breadcrumbSecondName: this.$t('message.linkis.sideNavList.function.children.globalHistory'),
     };
   },
   computed: {
@@ -206,8 +206,38 @@ export default {
         this.sideNavList.children[8].showSubMenu = !this.sideNavList.children[8].showSubMenu;
         return;
       }
-      index = index.split('-')[0] + '-' + index.split('-')[1]; //防止出现三级菜单
-      const activedCellParent = this.sideNavList;
+      // index = index.split('-')[0] + '-' + index.split('-')[1]; //防止出现三级菜单
+      let activedCellParent
+      switch (index) {
+        case '1-8-1':
+          activedCellParent = this.datasourceNavList
+          this.sideNavList.children[6].showSubMenu = false;
+          break;
+        case '1-8-2':
+          activedCellParent = this.datasourceNavList
+          this.sideNavList.children[6].showSubMenu = false;
+          break;
+        case '1-9-1':
+          activedCellParent = this.urmSideNavList
+          this.sideNavList.children[7].showSubMenu = false;
+          break;
+        case '1-9-2':
+          activedCellParent = this.urmSideNavList
+          this.sideNavList.children[7].showSubMenu = false;
+          break;
+        case '1-10-5':
+          activedCellParent = this.basedataNavList
+          this.sideNavList.children[8].showSubMenu = false;
+          break;
+        case '1-10-6':
+          activedCellParent = this.basedataNavList
+          this.sideNavList.children[8].showSubMenu = false;
+          break;
+        default:
+          activedCellParent = this.sideNavList
+          break;
+      }
+      // const activedCellParent = this.navListMap[index] || this.sideNavList;
       this.crrentItem = index;
       const activedCell = activedCellParent.children.find((item) => item.key === index);
       this.breadcrumbFirstName = activedCellParent.name;
